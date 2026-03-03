@@ -441,7 +441,7 @@ with st.sidebar:
 
     page = st.radio(
         "Navigation",
-        ["🏠  Home", "📊  Data Insights", "🎯  Predict Performance"],
+        ["🏠  Home","🎯  Predict Performance"],
         label_visibility="hidden"
     )
 
@@ -544,94 +544,6 @@ if "Home" in page:
     """, unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  PAGE: DATA INSIGHTS
-# ══════════════════════════════════════════════════════════════════════════════
-elif "Insights" in page:
-    st.markdown("""
-    <div class="page-header">
-        <div class="eyebrow">Exploratory Data Analysis</div>
-        <h1>Data <span>Insights</span></h1>
-        <p>Visual analysis of the training dataset and model performance metrics.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    import os
-    from pathlib import Path
-
-    # Resolve visualizations folder relative to this script's location
-    BASE_DIR = Path(__file__).parent
-    VIZ_DIR  = BASE_DIR / "visualizations"
-
-    def show_viz(filename, fallback_msg):
-        img_path = VIZ_DIR / filename
-        if img_path.exists():
-            st.image(str(img_path), use_container_width=True)
-        else:
-            st.info(f"Image not found: `visualizations/{filename}`\n\n{fallback_msg}")
-
-    col1, col2 = st.columns(2, gap="large")
-
-    with col1:
-        st.markdown("""
-        <div class="viz-card">
-            <div class="viz-header"><h4>📈 Target Distribution</h4></div>
-            <div class="viz-body">
-        """, unsafe_allow_html=True)
-        show_viz("target_distribution.png", "Run `train.py` to generate.")
-        st.markdown("</div></div>", unsafe_allow_html=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        st.markdown("""
-        <div class="viz-card">
-            <div class="viz-header"><h4>🔵 Actual vs Predicted</h4></div>
-            <div class="viz-body">
-        """, unsafe_allow_html=True)
-        show_viz("actual_vs_predicted.png", "Run `train.py` to generate.")
-        st.markdown("</div></div>", unsafe_allow_html=True)
-
-    with col2:
-        st.markdown("""
-        <div class="viz-card">
-            <div class="viz-header"><h4>🔥 Feature Correlation Matrix</h4></div>
-            <div class="viz-body">
-        """, unsafe_allow_html=True)
-        show_viz("correlation_matrix.png", "Run `train.py` to generate.")
-        st.markdown("</div></div>", unsafe_allow_html=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
-
-        # Model metrics summary card
-        st.markdown("""
-        <div class="viz-card">
-            <div class="viz-header"><h4>📋 Model Performance Summary</h4></div>
-            <div class="viz-body" style="padding: 1.4rem;">
-                <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
-                    <tr style="border-bottom:1px solid rgba(99,102,241,0.15);">
-                        <td style="padding:0.6rem 0; color:#64748b;">Algorithm</td>
-                        <td style="padding:0.6rem 0; color:#c7d2fe; font-weight:600; text-align:right;">Linear Regression</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid rgba(99,102,241,0.15);">
-                        <td style="padding:0.6rem 0; color:#64748b;">Train / Test Split</td>
-                        <td style="padding:0.6rem 0; color:#c7d2fe; font-weight:600; text-align:right;">80% / 20%</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid rgba(99,102,241,0.15);">
-                        <td style="padding:0.6rem 0; color:#64748b;">Scaler</td>
-                        <td style="padding:0.6rem 0; color:#c7d2fe; font-weight:600; text-align:right;">StandardScaler</td>
-                    </tr>
-                    <tr style="border-bottom:1px solid rgba(99,102,241,0.15);">
-                        <td style="padding:0.6rem 0; color:#64748b;">Categorical Encoding</td>
-                        <td style="padding:0.6rem 0; color:#c7d2fe; font-weight:600; text-align:right;">OneHotEncoder</td>
-                    </tr>
-                    <tr>
-                        <td style="padding:0.6rem 0; color:#64748b;">Pipeline</td>
-                        <td style="padding:0.6rem 0; color:#10b981; font-weight:600; text-align:right;">✓ sklearn Pipeline</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -748,5 +660,6 @@ elif "Predict" in page:
 
         except Exception as e:
             st.error(f"Prediction error: {e}")
+
 
 
