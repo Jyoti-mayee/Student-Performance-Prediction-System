@@ -573,48 +573,10 @@ elif "Predict" in page:
         with col1:
             course_type    = st.selectbox("Course Type", ["UG", "PG"])
             department     = st.selectbox("Department",
-                                          [
-    # -------------------
-    # Undergraduate (UG)
-    # -------------------
-    "B.Com",
-    "B.Ed",
-    "BBA",
-    "BCA",
-    "Chemistry",
-    "Economics",
-    "Education",
-    "English",
-    "Geology",
-    "Hindi",
-    "ITM (BSc)",
-    "Mathematics (BA & BSc)",
-    "Odia",
-    "Philosophy",
-    "Physics",
-    "Sanskrit",
-    "Statistics (BSc)",
-    "Urdu",
-    "Zoology",
-
-    # -------------------
-    # Postgraduate (PG)
-    # -------------------
-    "Chemistry & Applied Chemistry",
-    "Economics (PG)",
-    "Education (PG)",
-    "English (PG)",
-    "M.Com (Regular)",
-    "M.Com (F&C) SFC",
-    "Mathematics (PG)",
-    "MSW",
-    "MTHM",
-    "Physics (PG)",
-    "PMIR",
-    "Sanskrit (PG)",
-    "Urdu (PG)",
-    "Zoology (PG)"
-])
+                                          ["B.Com", "B.Ed", "BBA", "BCA", "Chemistry", "Economics", "Education", "English", "Geology", "Hindi", 
+                                           "ITM (BSc)", "Mathematics (BA & BSc)", "Odia", "Philosophy", "Physics", "Sanskrit", "Statistics (BSc)", 
+                                           "Urdu", "Zoology", "Chemistry & Applied Chemistry", "Economics (PG)", "Education (PG)", "English (PG)", "M.Com (Regular)", "M.Com (F&C) SFC", 
+                                           "Mathematics (PG)", "MSW", "MTHM", "Physics (PG)", "PMIR", "Sanskrit (PG)", "Urdu (PG)", "Zoology (PG)"])
             year_of_course = st.selectbox("Year of Course", [1, 2, 3,4,5,6])
 
         with col2:
@@ -700,6 +662,7 @@ elif "Predict" in page:
 
         except Exception as e:
             st.error(f"Prediction error: {e}")
+
 
 
 
