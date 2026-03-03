@@ -556,6 +556,20 @@ elif "Insights" in page:
     </div>
     """, unsafe_allow_html=True)
 
+    import os
+    from pathlib import Path
+
+    # Resolve visualizations folder relative to this script's location
+    BASE_DIR = Path(__file__).parent
+    VIZ_DIR  = BASE_DIR / "visualizations"
+
+    def show_viz(filename, fallback_msg):
+        img_path = VIZ_DIR / filename
+        if img_path.exists():
+            st.image(str(img_path), use_container_width=True)
+        else:
+            st.info(f"Image not found: `visualizations/{filename}`\n\n{fallback_msg}")
+
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
@@ -564,10 +578,7 @@ elif "Insights" in page:
             <div class="viz-header"><h4>📈 Target Distribution</h4></div>
             <div class="viz-body">
         """, unsafe_allow_html=True)
-        try:
-            st.image("visualizations/target_distribution.png", width='stretch')
-        except:
-            st.info("Run `train.py` to generate this visualization.")
+        show_viz("target_distribution.png", "Run `train.py` to generate.")
         st.markdown("</div></div>", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
@@ -577,10 +588,7 @@ elif "Insights" in page:
             <div class="viz-header"><h4>🔵 Actual vs Predicted</h4></div>
             <div class="viz-body">
         """, unsafe_allow_html=True)
-        try:
-            st.image("visualizations/actual_vs_predicted.png", width='content')
-        except:
-            st.info("Run `train.py` to generate this visualization.")
+        show_viz("actual_vs_predicted.png", "Run `train.py` to generate.")
         st.markdown("</div></div>", unsafe_allow_html=True)
 
     with col2:
@@ -589,10 +597,7 @@ elif "Insights" in page:
             <div class="viz-header"><h4>🔥 Feature Correlation Matrix</h4></div>
             <div class="viz-body">
         """, unsafe_allow_html=True)
-        try:
-            st.image("visualizations/correlation_matrix.png", width='stretch')
-        except:
-            st.warning("Correlation matrix not found. Run `train.py` first.")
+        show_viz("correlation_matrix.png", "Run `train.py` to generate.")
         st.markdown("</div></div>", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
@@ -656,49 +661,9 @@ elif "Predict" in page:
         with col1:
             course_type    = st.selectbox("Course Type", ["UG", "PG"])
             department     = st.selectbox("Department",
-                                          [
-                                            # -------------------
-                                            # Undergraduate (UG)
-                                            # -------------------
-                                            "B.Com",
-                                            "B.Ed",
-                                            "Economics",
-                                            "Education",
-                                            "Geology",
-                                            "Mathematics (BA & BSc)",
-                                            "Physics",
-                                            "BBA",
-                                            "BCA",
-                                            "Chemistry",
-                                            "English",
-                                            "Hindi",
-                                            "ITM (BSc)",
-                                            "Odia",
-                                            "Philosophy",
-                                            "Sanskrit",
-                                            "Statistics (BSc)",
-                                            "Urdu",
-                                            "Zoology",
-
-                                            # -------------------
-                                            # Postgraduate (PG)
-                                            # -------------------
-                                            "Chemistry & Applied Chemistry",
-                                            "Economics (PG)",
-                                            "Education (PG)",
-                                            "English (PG)",
-                                            "M.Com (Regular)",
-                                            "M.Com (F&C) SFC",
-                                            "Mathematics (PG)",
-                                            "MSW",
-                                            "MTHM",
-                                            "Physics (PG)",
-                                            "PMIR",
-                                            "Sanskrit (PG)",
-                                            "Urdu (PG)",
-                                            "Zoology (PG)"
-                                        ])
-            year_of_course = st.selectbox("Year of Course", [1, 2, 3,4,5,6])
+                                          ["Computer Science", "Physics", "Mathematics",
+                                           "Botany", "Zoology", "Commerce", "Arts"])
+            year_of_course = st.selectbox("Year of Course", [1, 2, 3])
 
         with col2:
             prev_sem1_sgpa = st.number_input("Previous Sem 1 SGPA", 0.0, 10.0, 7.5, step=0.1)
