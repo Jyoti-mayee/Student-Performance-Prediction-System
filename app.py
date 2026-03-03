@@ -566,7 +566,8 @@ elif "Insights" in page:
     def show_viz(filename, fallback_msg):
         img_path = VIZ_DIR / filename
         if img_path.exists():
-            st.image(str(img_path), use_container_width=True)
+            with open(img_path, "rb") as f:
+                st.image(f.read(), use_container_width=True)
         else:
             st.info(f"Image not found: `visualizations/{filename}`\n\n{fallback_msg}")
 
